@@ -35,3 +35,28 @@ document.addEventListener('keydown', function (e) {
     closeModalWindow();
   }
 });
+
+///////////////////////////////////////////////
+// Создание и вставка элементов
+// .insertAdjacentHTML()
+
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+// message.textContent = 'Мы используем на этом сайте cookie для улучшения функциональности.';
+message.innerHTML =
+  'Мы используем на этом сайте cookie для улучшения функциональности. <button class="btn btn--close-cookie">Ок!</button>';
+
+const header = document.querySelector('.header');
+// header.prepend(message);
+header.append(message);
+// header.append(message.cloneNode(true));
+// header.before(message);
+// header.after(message);
+
+// Удаление элементов
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', function () {
+    message.remove();
+    // message.parentElement.removeChild(message);
+  });
