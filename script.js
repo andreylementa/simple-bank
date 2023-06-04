@@ -90,3 +90,49 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertMouseEnterH1), 3000);
 // h1.onclick = function (e) {
 //   alert('onclick: You have clicked the h1 element');
 // };
+
+///////////////////////////////////////
+// Event Propagation
+// rgb(123, 56, 78)
+
+// function getRandomIntInclusive(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+// }
+
+// const getRandomColor = () =>
+//   `rgb(${getRandomIntInclusive(0, 255)}, ${getRandomIntInclusive(
+//     0,
+//     255
+//   )}, ${getRandomIntInclusive(0, 255)})`;
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Link', e.target, e.currentTarget);
+//   console.log(this === e.currentTarget);
+//   // Stop propagation
+//   // e.stopPropagation();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Links', e.target, e.currentTarget);
+//   console.log(this === e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = getRandomColor();
+//     console.log('Nav', e.target, e.currentTarget);
+//     console.log(this === e.currentTarget);
+//   }
+//   // , true
+// );
+
+// document.querySelector('body').addEventListener('click', function (e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Body', e.target, e.currentTarget);
+//   console.log(this === e.currentTarget);
+// });
