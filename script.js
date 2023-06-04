@@ -60,3 +60,11 @@ document
     message.remove();
     // message.parentElement.removeChild(message);
   });
+console.log(getComputedStyle(overlay));
+
+const section1 = document.querySelector('#section--1');
+const btnScroll = document.querySelector('.btn--scroll-to');
+
+btnScroll.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
