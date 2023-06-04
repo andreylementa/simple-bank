@@ -1,14 +1,16 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
 const btnsOpenModalWindow = document.querySelectorAll(
   '.btn--show-modal-window'
 );
+const section1 = document.querySelector('#section--1');
+const btnScroll = document.querySelector('.btn--scroll-to');
+
+///////////////////////////////////////
+// Modal window
 
 const openModalWindow = function () {
   modalWindow.classList.remove('hidden');
@@ -64,28 +66,52 @@ document
 
 // Плавное прокручивание
 
-const section1 = document.querySelector('#section--1');
-const btnScroll = document.querySelector('.btn--scroll-to');
-
 btnScroll.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+///////////////////////////////////////////////
+// Smooth page navigation
+
+// document.querySelectorAll('.nav__link').forEach(function (htmlElement) {
+//   htmlElement.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const href = this.getAttribute('href');
+//     console.log(href);
+//     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// Делегирование событий
+// 1. Добавляем event listener для ОБЩЕГО родителя
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // 2. Определить target элемент
+  console.log(e.target);
+  if (e.target.classList.contains('nav__link')) {
+    const href = e.target.getAttribute('href');
+    console.log(href);
+    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // Виды Событий И Обработчиков Событий
 
-const h1 = document.querySelector('h1');
-// const alertMouseEnterH1 = function (e) {
-//   alert('addEventListener: You are now at the h1 element');
-//   h1.removeEventListener('mouseenter', alertMouseEnterH1);
-// };
+//const h1 = document.querySelector('h1');
+//// const alertMouseEnterH1 = function (e) {
+////   alert('addEventListener: You are now at the h1 element');
+////   h1.removeEventListener('mouseenter', alertMouseEnterH1);
+//// };
 
-const alertMouseEnterH1 = function (e) {
-  alert('addEventListener: You are now at the h1 element');
-};
-h1.addEventListener('mouseenter', alertMouseEnterH1);
+//const alertMouseEnterH1 = function (e) {
+//  alert('addEventListener: You are now at the h1 element');
+//};
+//h1.addEventListener('mouseenter', alertMouseEnterH1);
 
-setTimeout(() => h1.removeEventListener('mouseenter', alertMouseEnterH1), 3000);
+//setTimeout(() => h1.removeEventListener('mouseenter', alertMouseEnterH1), 3000);
 
 // h1.onclick = function (e) {
 //   alert('onclick: You have clicked the h1 element');
