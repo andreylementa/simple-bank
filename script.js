@@ -122,7 +122,6 @@ tabContainer.addEventListener('click', function (e) {
 // Анимация потускнения на панели навигации
 
 const navLinksHoverAnimation = function (e) {
-  console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     const linkOver = e.target;
     const siblingLinks = linkOver
@@ -145,14 +144,49 @@ nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4));
 nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
 
 // Sticky navigation
-const section1Cord = section1.getBoundingClientRect();
-window.addEventListener('scroll', function () {
-  if (window.scrollY > section1Cord.top) {
+//const section1Cord = section1.getBoundingClientRect();
+//window.addEventListener('scroll', function () {
+//  if (window.scrollY > section1Cord.top) {
+//    nav.classList.add('sticky');
+//  } else {
+//    nav.classList.remove('sticky');
+//  }
+//});
+
+// Sticky navigation - Intersection Observer API
+
+// const observerCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const observerOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(observerCallback, observerOptions);
+// observer.observe(section1);
+
+const navHeight = nav.getBoundingClientRect().height;
+// console.log(navHeight);
+const getStickyNav = function (entries) {
+  const entry = entries[0];
+  // console.log(entry);
+  if (!entry.isIntersecting) {
     nav.classList.add('sticky');
   } else {
     nav.classList.remove('sticky');
   }
+};
+
+const headerObserver = new IntersectionObserver(getStickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
 });
+headerObserver.observe(header);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
