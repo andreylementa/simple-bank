@@ -216,33 +216,78 @@ const slides = document.querySelectorAll('.slide');
 const sliderBtnLeft = document.querySelector('.slider__btn--left');
 const sliderBtnRight = document.querySelector('.slider__btn--right');
 let currentSlide = 0;
-//slider.style.overflow = 'visible';
+const dotContainer = document.querySelector('.dots');
+
+const createDots = function () {
+  slides.forEach(function (_, index) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class ="dots__dot" data-slide="${index}"></button>`
+    );
+  });
+};
+createDots();
+
+const activateCurrentDot = function (slide) {
+  dotContainer
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList.remove('dots__dot--active'));
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+
+activateCurrentDot(currentSlide);
 
 const moveToSlide = function (slide) {
   slides.forEach((s, index) => {
-    s.style.transform = `translateX(${(index - currentSlide) * 100}%)`;
+    s.style.transform = `translateX(${(index - slide) * 100}%)`;
   });
+  activateCurrentDot(slide);
 };
 
-slides.forEach((slide, index) => {
-  slide.style.transform = `translateX(${index * 100}%)`;
-});
-sliderBtnRight.addEventListener('click', function () {
+const nextSlide = function () {
   if (currentSlide === slides.length - 1) {
     currentSlide = 0;
   } else {
     currentSlide++;
   }
   moveToSlide(currentSlide);
-});
+};
 
-sliderBtnLeft.addEventListener('click', function () {
+const prewSlide = function () {
   if (currentSlide === 0) {
     currentSlide = slides.length - 1;
   } else {
     currentSlide--;
   }
   moveToSlide(currentSlide);
+};
+
+slides.forEach((slide, index) => {
+  slide.style.transform = `translateX(${index * 100}%)`;
+});
+sliderBtnRight.addEventListener('click', nextSlide);
+
+sliderBtnLeft.addEventListener('click', prewSlide);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight') {
+    nextSlide();
+  }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') {
+    prewSlide();
+  }
+});
+console.log(dotContainer.querySelectorAll('.dots__dot'));
+// Pagination
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const slide = e.target.dataset.slide;
+    moveToSlide(slide);
+  }
 });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
