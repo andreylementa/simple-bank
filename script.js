@@ -185,6 +185,31 @@ allSections.forEach(function (section) {
   section.classList.add('section--hidden');
 });
 
+// Имплементация lazy loading для изображений
+const lazyImages = document.querySelectorAll('img[data-src]');
+
+const loadImages = function (entries, observer) {
+  const entry = entries[0];
+
+  if (!entry.isIntersecting) {
+    return;
+  }
+
+  // Меняем на изображение с высоким разрешением
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
+};
+
+const lazyImagesObserver = new IntersectionObserver(loadImages, {
+  root: null,
+  threshold: 0.7,
+});
+lazyImages.forEach(image => lazyImagesObserver.observe(image));
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
